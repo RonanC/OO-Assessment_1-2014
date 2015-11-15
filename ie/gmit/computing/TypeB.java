@@ -5,6 +5,15 @@ import java.util.Date;
 public class TypeB {
 	private Date date;
 	
+	public TypeB() {
+		super();
+	}
+	
+	public TypeB(Date date) {
+		this();
+		setDate(date);
+	}
+	
 	public void setDate(Date date) {
 		this.date = date;
 	}

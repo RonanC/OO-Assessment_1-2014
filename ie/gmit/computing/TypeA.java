@@ -7,45 +7,61 @@ public class TypeA {
 		System.out.println("**Start**");
 		
 //		Date date = new Date();
-		TypeB typeb = new TypeB();
-		List<TypeD> list;
+//		TypeB tb = new TypeB();
+//		List<TypeD> list;
 		
 		// create an instance of TypeC
-		TypeC typec = new TypeC(typeb);
+		///TypeC tc = new TypeC(tb);
+		TypeC tc = new TypeC(new Date());
 		
 		// Instances of TypeD to be passed to TypeC
-		TypeD typed1 = new TypeD();
-		TypeD typed2 = new TypeD();
-		TypeD typed3 = new TypeD();
-		TypeD typed4 = new TypeD();
+//		TypeD td1 = new TypeD();
+//		TypeD td2 = new TypeD();
+//		TypeD td3 = new TypeD();
+//		TypeD td4 = new TypeD();
+		for (int i = 0; i < 100; i++) {
+			tc.add(new TypeD("G" + i));
+		}
 		
+		System.out.println("Count: " + tc.count());
+		
+		TypeD td = new TypeD("G50");
+		boolean result = tc.delete(td);
+		
+		System.out.println("Removed returned " + result + ". There are " + tc.count() + " elements in the container.");
 		// Exercise all of TypeC's methods
-		typec.add(typed1);
-		typec.add(typed2);
-		typec.add(typed3);
-		typec.add(typed4);
-		System.out.println(typec.delete(typed1));
-		System.out.println(typec.count());
-		typec.contains(typed2);
+//		tc.add(td1);
+//		tc.add(td2);
+//		tc.add(td3);
+//		tc.add(td4);
+		//System.out.println(tc.delete(td1));
+		//tc.contains(td2);
 		
-		list = typec.elements();
-		System.out.println("list: " + list.toString());
+		List<TypeD> tds = tc.elements();
+		tds.clear();
+//		list = tc.elements();
+//		System.out.println("list: " + list.toString());
 		
 		// remove references to check finalize method works (GC)
-		typed4 = null;
-		typed3 = null;
-		typed2 = null;
-		typed1 = null;
-		typec = null;
-		list = null;
+//		td4 = null;
+//		td3 = null;
+//		td2 = null;
+//		td1 = null;
+//		tc = null;
+//		list = null;
 		
 		// hint to GC that you want to GC
-		System.gc();
+		//System.gc();
 		
 		// finalize
-		// typed2.finalize();
-		// typed1.finalize();
-		// typec.finalize();
+		// td2.finalize();
+		// td1.finalize();
+		// tc.finalize();
+		
+		System.out.println("Count: " + tc.count());
+		
+		tc = null;
+		System.gc();
 		
 		System.out.println("**End**\n");
 	}

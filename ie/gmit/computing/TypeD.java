@@ -1,7 +1,15 @@
 package ie.gmit.computing;
 
-public class TypeD {
+public class TypeD implements Cloneable {
 	private String name;
+	
+	public TypeD() {
+		super();
+	}
+	
+	public TypeD(String name) {
+		setName(name);
+	}
 	
 	public void setName(String name) {
 		this.name = name;
@@ -11,9 +19,47 @@ public class TypeD {
 		return this.name;
 	}
 	
+	// clone
+	protected Object clone() throws CloneNotSupportedException {
+		return super.clone();
+	};
+	
+	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (obj == null) {
+			return false;
+		}
+		if(getClass() == obj.getClass()){
+			return true;
+		}
+		
+		TypeD other = (TypeD) obj;
+		if (name == null) {
+			if (other.name != null) {
+				return false;
+			}
+		} else if (!name.equals(other.name)) {
+			return false;
+		}
+		
+		return true;
+	}
+
 	// finalize
 	protected void finalize() throws Throwable {
-		System.out.println("TypeD about to be GCd\nObject ID: " + this + "\n");
+		System.out.println("An instance of TypeD about to be GCd\nObject ID: " + this + "\n");
 		//super.finalize();
 	}
 }

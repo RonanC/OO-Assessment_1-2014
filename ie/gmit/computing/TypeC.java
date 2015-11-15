@@ -4,18 +4,26 @@ import java.util.*;
 
 public class TypeC {
 	// delegate interface
-	private List<TypeD> list = new LinkedList<TypeD>();
+	private Date date;
+	private List<TypeD> list = new ArrayList<TypeD>();
 	// Passing in typeB to this TypeC constructor but UML had DATE explicit, to make aggregation rule correct then must pass it into constructor
-	private TypeB typeb;
+	//private TypeB typeb;
 	
-	public TypeC(TypeB typeb) {
-		this.typeb = typeb;
-		typeb.setDate(new Date());
+	public TypeC(Date date) {
+		super();
+		this.date = date;
+//		this.typeb = typeb;
+//		this.typeb.setDate(new Date());
 	}
 	
 	// delegate methods
-	public void add(TypeD element) {
-		list.add(element);
+	public boolean add(TypeD element) {
+		try {
+			TypeD td = (TypeD) element.clone();
+			return list.add(td);
+		} catch (Exception e) {
+			return false;
+		}
 	}
 	
 	public boolean delete(TypeD element) {
@@ -31,7 +39,16 @@ public class TypeC {
 	}
 	
 	public List<TypeD> elements() {
-		return list;
+		List<TypeD> temp = new ArrayList<TypeD>();
+		for (TypeD element : list) {
+			try {
+				TypeD td = (TypeD) element.clone();
+				temp.add(td);
+			} catch (Exception e) {
+				// ignore
+			}
+		}
+		return temp;
 	}
 
 	// finalize
